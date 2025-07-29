@@ -1,0 +1,172 @@
+# Certificates Directory .gitignore
+# This file ensures production certificates are never committed to version control
+# while allowing development certificates to be safely tracked.
+
+# =============================================================================
+# SECURITY CRITICAL: Ignore all certificate and key files by default
+# =============================================================================
+
+# Certificate files
+*.crt
+*.pem
+*.cert
+*.cer
+*.der
+
+# Private key files  
+*.key
+*.priv
+*.private
+
+# Certificate stores and bundles
+*.p12
+*.pfx
+*.jks
+*.keystore
+*.truststore
+
+# Certificate signing requests
+*.csr
+
+# Certificate chains and bundles
+*.bundle
+*.chain
+*.ca-bundle
+
+# =============================================================================
+# DEVELOPMENT CERTIFICATES: Allow specific development patterns
+# =============================================================================
+# These patterns are considered safe for version control as they contain
+# only self-signed certificates for local development and testing
+
+# Self-signed development certificates
+!dev-*.crt
+!dev-*.pem
+!dev-*.key
+!*-dev.crt
+!*-dev.pem  
+!*-dev.key
+
+# Localhost certificates
+!localhost.crt
+!localhost.pem
+!localhost.key
+
+# Development environment certificates
+!development-*.crt
+!development-*.pem
+!development-*.key
+
+# Self-signed pattern certificates
+!self-signed.*
+!selfsigned.*
+
+# Test certificates
+!test-*.crt
+!test-*.pem
+!test-*.key
+
+# =============================================================================
+# PRODUCTION ENVIRONMENT FILES: Always ignore these directories
+# =============================================================================
+
+# Production certificate directories
+prod/
+production/
+live/
+staging/
+
+# Certificate authority directories
+ca/
+ca-files/
+certificate-authority/
+
+# Let's Encrypt directories and files
+letsencrypt/
+certbot/
+acme/
+.well-known/
+
+# Private key storage directories  
+private/
+keys/
+secrets/
+
+# =============================================================================
+# BACKUP AND TEMPORARY FILES: Ignore all backup and temp files
+# =============================================================================
+
+# Certificate backups
+*.bak
+*.backup
+*.old
+*.orig
+
+# Temporary certificate files
+*.tmp
+*.temp
+*.temporary
+
+# Editor temporary files
+*~
+.#*
+\#*#
+
+# Certificate generation temporary files
+*.srl
+*.rand
+*.req
+
+# =============================================================================
+# OPERATING SYSTEM AND TOOL SPECIFIC FILES
+# =============================================================================
+
+# macOS
+.DS_Store
+.DS_Store?
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Linux
+*~
+
+# =============================================================================
+# CERTIFICATE MANAGEMENT TOOL FILES
+# =============================================================================
+
+# OpenSSL files
+*.conf.bak
+openssl.cnf.backup
+
+# Certificate management scripts that might contain sensitive data
+*-prod-*
+*-production-*
+*-live-*
+
+# Key generation logs
+keygen.log
+cert-gen.log
+
+# =============================================================================
+# NOTES FOR DEVELOPERS
+# =============================================================================
+# 
+# Safe to commit (not ignored):
+# - dev-cert.crt, dev-cert.key (development certificates)
+# - localhost.crt, localhost.key (local testing certificates)  
+# - self-signed.* (self-signed development certificates)
+# - test-*.* (test environment certificates)
+# - Certificate generation scripts for development
+# - Documentation and README files
+#
+# NEVER commit (ignored by this file):
+# - Production certificates and private keys
+# - Let's Encrypt certificates
+# - CA-signed certificates
+# - Any files in prod/, production/, live/ directories
+# - Certificate backups and temporary files
+#
+# When in doubt, DO NOT commit certificate files. Ask a team member.
+# =============================================================================
