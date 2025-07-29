@@ -10,8 +10,8 @@ set -e  # Exit immediately if a command exits with a non-zero status
 
 # Configuration
 CERT_DIR="$(dirname "$0")"
-PRIVATE_KEY="$CERT_DIR/private-key.pem"
-CERTIFICATE="$CERT_DIR/certificate.pem"
+PRIVATE_KEY="$CERT_DIR/key.pem"
+CERTIFICATE="$CERT_DIR/cert.pem"
 DAYS_VALID=365
 KEY_SIZE=2048
 
@@ -308,8 +308,8 @@ if [[ "$1" == "--help" || "$1" == "-h" ]]; then
     echo "The certificates are suitable for development and testing only."
     echo
     echo "Generated files:"
-    echo "  - private-key.pem: RSA private key"
-    echo "  - certificate.pem: Self-signed X.509 certificate"
+    echo "  - key.pem: RSA private key"
+    echo "  - cert.pem: Self-signed X.509 certificate"
     echo
     echo "The certificate includes Subject Alternative Names (SAN) for:"
     echo "  - localhost"
