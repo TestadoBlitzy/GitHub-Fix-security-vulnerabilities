@@ -1,0 +1,8 @@
+node_modules/
+npm-debug.log*
+.npm
+.env
+*.log
+
+# SSL certificates - use certificates/.gitignore for granular control
+# Production certificates are ignored, development certificates are tracked
