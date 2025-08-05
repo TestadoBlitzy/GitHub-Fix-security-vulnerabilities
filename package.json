@@ -1,19 +1,45 @@
 {
-    "name": "hello_world",
-    "version": "1.0.0",
-    "description": "Hello world in Node.js",
-    "main": "server.js",
-    "scripts": {
-        "start": "node server.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
-    },
-    "dependencies": {
-        "express": "^4.21.2",
-        "helmet": "^8.1.0",
-        "express-rate-limit": "^7.5.0",
-        "express-validator": "^7.2.1",
-        "cors": "^2.8.5"
-    },
-    "author": "hxu",
-    "license": "MIT"
+  "name": "hao-backprop-test",
+  "version": "1.0.0",
+  "description": "Security-hardened Express server application for hao-backprop testing environment with comprehensive middleware security stack",
+  "main": "server.js",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "audit": "npm audit",
+    "audit-fix": "npm audit fix"
+  },
+  "keywords": [
+    "express",
+    "security",
+    "testing",
+    "https",
+    "middleware",
+    "helmet",
+    "rate-limiting",
+    "cors",
+    "validation"
+  ],
+  "author": "Blitzy Platform",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "express-validator": "^7.2.1",
+    "helmet": "^8.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "."
+  },
+  "bugs": {
+    "url": "https://github.com/blitzy-public-samples/hao-backprop-test/issues"
+  },
+  "homepage": "https://github.com/blitzy-public-samples/hao-backprop-test#readme",
+  "devDependencies": {
+    "supertest": "^7.1.4"
+  }
 }
