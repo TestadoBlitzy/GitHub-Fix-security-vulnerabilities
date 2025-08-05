@@ -17,7 +17,7 @@ app.use(helmet({
   contentSecurityPolicy: {
     directives: {
       defaultSrc: ["'self'"],
-      styleSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "https://fonts.googleapis.com"],
       scriptSrc: ["'self'"],
       imgSrc: ["'self'", "data:", "https:"],
     },
@@ -29,22 +29,33 @@ app.use(helmet({
   }
 }));
 
-// Rate limiting - 100 requests per 15 minutes to prevent DoS attacks
+// Rate limiting - 50 requests per 10 minutes to prevent DoS attacks
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  limit: 100, // Limit each IP to 100 requests per windowMs
+  windowMs: 10 * 60 * 1000, // 10 minutes
+  limit: 50, // Limit each IP to 50 requests per windowMs
   standardHeaders: 'draft-8', // Return rate limit info in headers
   legacyHeaders: false, // Disable the `X-RateLimit-*` headers
   message: {
     error: 'Too many requests from this IP, please try again later.',
-    retryAfter: '15 minutes'
+    retryAfter: '10 minutes'
   }
 });
 app.use(limiter);
 
-// CORS configuration - Restrictive origin policy
+// CORS configuration - Restrictive origin policy with dynamic validation
+const allowedOrigins = ['http://localhost:3000', 'https://localhost:3443'];
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://localhost:3443'], // Only allow localhost origins
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Dynamic strict checking - validate origin against allowlist
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS policy'), false);
+    }
+  }, // Enhanced dynamic origin validation
   credentials: false,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
@@ -177,7 +188,7 @@ httpServer.listen(httpPort, hostname, () => {
   console.log(`HTTP Server running at http://${hostname}:${httpPort}/`);
   console.log('Security features enabled:');
   console.log('✓ Security headers (Helmet.js)');
-  console.log('✓ Rate limiting (100 requests/15min)');
+  console.log('✓ Rate limiting (50 requests/10min)');
   console.log('✓ CORS protection');
   console.log('✓ Input validation ready');
 });
